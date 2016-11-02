@@ -11,9 +11,7 @@ from bs4 import BeautifulSoup
 
 
 #### FUNCTIONS 1.2
-import requests #import requests library to validate url
-
-#### FUNCTIONS 1.0
+import requests    #import requests library to validate url
 
 
 def validateFilename(filename):
@@ -49,25 +47,12 @@ def validateURL(url):
             print ("Attempt {0} - Status code: {1}. Retrying.".format(count, r.status_code))
             count += 1
             r = requests.get(url)
-
-        r = urllib2.urlopen(url)
-        count = 1
-        while r.getcode() == 500 and count < 4:
-            print ("Attempt {0} - Status code: {1}. Retrying.".format(count, r.status_code))
-            count += 1
-            r = urllib2.urlopen(url)
-
         sourceFilename = r.headers.get('Content-Disposition')
-
         if sourceFilename:
             ext = os.path.splitext(sourceFilename)[1].replace('"', '').replace(';', '').replace(' ', '')
         else:
             ext = os.path.splitext(url)[1]
-
         validURL = r.status_code == 200
-
-        validURL = r.getcode() == 200
-
         validFiletype = ext.lower() in ['.csv', '.xls', '.xlsx', '.pdf']
         return validURL, validFiletype
     except:
@@ -136,7 +121,7 @@ archive_soup = BeautifulSoup(archive_html, 'lxml')
 rows = archive_soup.find_all('div', 'dataset-resource')
 for row in rows:
     title = row.find('span', 'inner-cell').text.strip().split(' ')
-    title = row.find('div', 'inner2').text.strip().split(' ')
+    # title = row.find('div', 'inner2').text.strip().split(' ')
     year = title[-1]
     month = title[-2]
     doc_date = year+' '+month
