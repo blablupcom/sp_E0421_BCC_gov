@@ -132,7 +132,6 @@ for row in rows:
             csvYr = year
             csvMth = month[:3]
             url = row.find('a', 'js-tooltip')['href']
-            url = 'https://data.gov.uk'+row.find('a', 'js-tooltip')['href']
             csvMth = convert_mth_strings(csvMth.upper())
             data.append([csvYr, csvMth, url])
 
